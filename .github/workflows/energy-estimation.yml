@@ -26,8 +26,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - name: Install Dependencies
-        run: npm install
       - name: Node Setup Energy Measurment
         uses: green-coding-berlin/eco-ci-energy-estimation@main
         with:
