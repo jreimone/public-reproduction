@@ -1,0 +1,39 @@
+name: Reproduce Energy Estimation Bug
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  ci:
+    name: Continuous Integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Initialize Energy Estimation
+        uses: green-coding-berlin/eco-ci-energy-estimation@main
+        with:
+          task: start-measurement
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Checkout Repo Energy Measurment
+        uses: green-coding-berlin/eco-ci-energy-estimation@main
+        with:
+          task: get-measurement # label: 'repo checkout'
+          label: 'repo checkout'
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install Dependencies
+        run: npm install
+      - name: Node Setup Energy Measurment
+        uses: green-coding-berlin/eco-ci-energy-estimation@main
+        with:
+          task: get-measurement # label: 'node setup'
+          label: 'node setup'
+      - name: Eco CI Energy Estimation
+        uses: green-coding-berlin/eco-ci-energy-estimation@main
+        with:
+          task: final-measurement
