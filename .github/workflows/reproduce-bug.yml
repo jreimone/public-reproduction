@@ -1,0 +1,17 @@
+name: 2023-06-30 Reproduce bug
+on:
+  push:
+    branches:
+      - 2023-06-30-reproduce-eco-ci-bug
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  tests:
+    name: Provoke bug
+    runs-on: ubuntu-latest
+    steps:
+      - name: Initialize Energy Estimation
+        uses: green-coding-berlin/eco-ci-energy-estimation@v2
+        with:
+          task: start-measurement
