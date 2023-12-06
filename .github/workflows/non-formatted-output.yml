@@ -10,6 +10,9 @@ jobs:
   tests:
     name: Provoke bug
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      actions: read
     steps:
       - name: Initialize Energy Estimation
         uses: green-coding-berlin/eco-ci-energy-estimation@v2
