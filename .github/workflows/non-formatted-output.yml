@@ -1,0 +1,36 @@
+name: 2023-12-06 Reproduce Non-formatted output bug
+on:
+  push:
+    branches:
+      - 2023-12-06-non-formatted-output-bug
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  tests:
+    name: Provoke bug
+    runs-on: ubuntu-latest
+    steps:
+      - name: Initialize Energy Estimation
+        uses: green-coding-berlin/eco-ci-energy-estimation@v2
+        with:
+          task: start-measurement
+      
+      - name: Sleep
+        shell: bash
+        run: sleep 5
+        
+      - name: Sleep Measurement
+        uses: green-coding-berlin/eco-ci-energy-estimation@v2
+        with:
+          task: get-measurement
+          send-data: false
+          label: 'sleep'
+          
+      - name: Show Energy Results
+        uses: green-coding-berlin/eco-ci-energy-estimation@v2
+        with:
+          task: display-results
+          send-data: false
+          pr-comment: true
+          
